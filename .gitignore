@@ -1,0 +1,17 @@
+# Python cache & backups
+__pycache__/
+*.py[cod]
+*$py.class
+*.bak
+*.pre_patch.bak
+
+# Raw big datasets & archives (GB-scale, exclude from Git)
+data/*.zip
+data/*.tar.xz
+data/9810e03bba4983da_MOHANAD_A4706/
+data/all_attack_benign_samples/
+data/*.csv
+
+# Temporary / OS files
+.DS_Store
+Thumbs.db

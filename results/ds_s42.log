@@ -1,0 +1,98 @@
+nohup: ignoring input
+/home/danh/venv-dacn/lib/python3.12/site-packages/lightgbm/sklearn.py:1106: LGBMDeprecationWarning: The argument 'eval_set' is deprecated, use 'eval_X' and 'eval_y' instead.
+  eval_set = _validate_eval_set_Xy(eval_set=eval_set, eval_X=eval_X, eval_y=eval_y)
+/home/danh/venv-dacn/lib/python3.12/site-packages/lightgbm/sklearn.py:1106: LGBMDeprecationWarning: The argument 'eval_set' is deprecated, use 'eval_X' and 'eval_y' instead.
+  eval_set = _validate_eval_set_Xy(eval_set=eval_set, eval_X=eval_X, eval_y=eval_y)
+/home/danh/venv-dacn/lib/python3.12/site-packages/lightgbm/sklearn.py:1106: LGBMDeprecationWarning: The argument 'eval_set' is deprecated, use 'eval_X' and 'eval_y' instead.
+  eval_set = _validate_eval_set_Xy(eval_set=eval_set, eval_X=eval_X, eval_y=eval_y)
+/home/danh/venv-dacn/lib/python3.12/site-packages/lightgbm/sklearn.py:1106: LGBMDeprecationWarning: The argument 'eval_set' is deprecated, use 'eval_X' and 'eval_y' instead.
+  eval_set = _validate_eval_set_Xy(eval_set=eval_set, eval_X=eval_X, eval_y=eval_y)
+/home/danh/venv-dacn/lib/python3.12/site-packages/lightgbm/sklearn.py:1106: LGBMDeprecationWarning: The argument 'eval_set' is deprecated, use 'eval_X' and 'eval_y' instead.
+  eval_set = _validate_eval_set_Xy(eval_set=eval_set, eval_X=eval_X, eval_y=eval_y)
+/home/danh/venv-dacn/lib/python3.12/site-packages/lightgbm/sklearn.py:1106: LGBMDeprecationWarning: The argument 'eval_set' is deprecated, use 'eval_X' and 'eval_y' instead.
+  eval_set = _validate_eval_set_Xy(eval_set=eval_set, eval_X=eval_X, eval_y=eval_y)
+/home/danh/venv-dacn/lib/python3.12/site-packages/lightgbm/sklearn.py:1106: LGBMDeprecationWarning: The argument 'eval_set' is deprecated, use 'eval_X' and 'eval_y' instead.
+  eval_set = _validate_eval_set_Xy(eval_set=eval_set, eval_X=eval_X, eval_y=eval_y)
+/home/danh/venv-dacn/lib/python3.12/site-packages/lightgbm/sklearn.py:1106: LGBMDeprecationWarning: The argument 'eval_set' is deprecated, use 'eval_X' and 'eval_y' instead.
+  eval_set = _validate_eval_set_Xy(eval_set=eval_set, eval_X=eval_X, eval_y=eval_y)
+/home/danh/venv-dacn/lib/python3.12/site-packages/lightgbm/sklearn.py:1106: LGBMDeprecationWarning: The argument 'eval_set' is deprecated, use 'eval_X' and 'eval_y' instead.
+  eval_set = _validate_eval_set_Xy(eval_set=eval_set, eval_X=eval_X, eval_y=eval_y)
+/home/danh/venv-dacn/lib/python3.12/site-packages/lightgbm/sklearn.py:1106: LGBMDeprecationWarning: The argument 'eval_set' is deprecated, use 'eval_X' and 'eval_y' instead.
+  eval_set = _validate_eval_set_Xy(eval_set=eval_set, eval_X=eval_X, eval_y=eval_y)
+/home/danh/venv-dacn/lib/python3.12/site-packages/lightgbm/sklearn.py:1106: LGBMDeprecationWarning: The argument 'eval_set' is deprecated, use 'eval_X' and 'eval_y' instead.
+  eval_set = _validate_eval_set_Xy(eval_set=eval_set, eval_X=eval_X, eval_y=eval_y)
+/home/danh/venv-dacn/lib/python3.12/site-packages/lightgbm/sklearn.py:1106: LGBMDeprecationWarning: The argument 'eval_set' is deprecated, use 'eval_X' and 'eval_y' instead.
+  eval_set = _validate_eval_set_Xy(eval_set=eval_set, eval_X=eval_X, eval_y=eval_y)
+/home/danh/venv-dacn/lib/python3.12/site-packages/lightgbm/sklearn.py:1106: LGBMDeprecationWarning: The argument 'eval_set' is deprecated, use 'eval_X' and 'eval_y' instead.
+  eval_set = _validate_eval_set_Xy(eval_set=eval_set, eval_X=eval_X, eval_y=eval_y)
+/home/danh/venv-dacn/lib/python3.12/site-packages/lightgbm/sklearn.py:1106: LGBMDeprecationWarning: The argument 'eval_set' is deprecated, use 'eval_X' and 'eval_y' instead.
+  eval_set = _validate_eval_set_Xy(eval_set=eval_set, eval_X=eval_X, eval_y=eval_y)
+/home/danh/venv-dacn/lib/python3.12/site-packages/lightgbm/sklearn.py:1106: LGBMDeprecationWarning: The argument 'eval_set' is deprecated, use 'eval_X' and 'eval_y' instead.
+  eval_set = _validate_eval_set_Xy(eval_set=eval_set, eval_X=eval_X, eval_y=eval_y)
+/home/danh/venv-dacn/lib/python3.12/site-packages/lightgbm/sklearn.py:1106: LGBMDeprecationWarning: The argument 'eval_set' is deprecated, use 'eval_X' and 'eval_y' instead.
+  eval_set = _validate_eval_set_Xy(eval_set=eval_set, eval_X=eval_X, eval_y=eval_y)
+/home/danh/venv-dacn/lib/python3.12/site-packages/lightgbm/sklearn.py:1106: LGBMDeprecationWarning: The argument 'eval_set' is deprecated, use 'eval_X' and 'eval_y' instead.
+  eval_set = _validate_eval_set_Xy(eval_set=eval_set, eval_X=eval_X, eval_y=eval_y)
+/home/danh/venv-dacn/lib/python3.12/site-packages/lightgbm/sklearn.py:1106: LGBMDeprecationWarning: The argument 'eval_set' is deprecated, use 'eval_X' and 'eval_y' instead.
+  eval_set = _validate_eval_set_Xy(eval_set=eval_set, eval_X=eval_X, eval_y=eval_y)
+/home/danh/venv-dacn/lib/python3.12/site-packages/lightgbm/sklearn.py:1106: LGBMDeprecationWarning: The argument 'eval_set' is deprecated, use 'eval_X' and 'eval_y' instead.
+  eval_set = _validate_eval_set_Xy(eval_set=eval_set, eval_X=eval_X, eval_y=eval_y)
+/home/danh/venv-dacn/lib/python3.12/site-packages/lightgbm/sklearn.py:1106: LGBMDeprecationWarning: The argument 'eval_set' is deprecated, use 'eval_X' and 'eval_y' instead.
+  eval_set = _validate_eval_set_Xy(eval_set=eval_set, eval_X=eval_X, eval_y=eval_y)
+/home/danh/venv-dacn/lib/python3.12/site-packages/lightgbm/sklearn.py:1106: LGBMDeprecationWarning: The argument 'eval_set' is deprecated, use 'eval_X' and 'eval_y' instead.
+  eval_set = _validate_eval_set_Xy(eval_set=eval_set, eval_X=eval_X, eval_y=eval_y)
+/home/danh/venv-dacn/lib/python3.12/site-packages/lightgbm/sklearn.py:1106: LGBMDeprecationWarning: The argument 'eval_set' is deprecated, use 'eval_X' and 'eval_y' instead.
+  eval_set = _validate_eval_set_Xy(eval_set=eval_set, eval_X=eval_X, eval_y=eval_y)
+/home/danh/venv-dacn/lib/python3.12/site-packages/lightgbm/sklearn.py:1106: LGBMDeprecationWarning: The argument 'eval_set' is deprecated, use 'eval_X' and 'eval_y' instead.
+  eval_set = _validate_eval_set_Xy(eval_set=eval_set, eval_X=eval_X, eval_y=eval_y)
+/home/danh/venv-dacn/lib/python3.12/site-packages/lightgbm/sklearn.py:1106: LGBMDeprecationWarning: The argument 'eval_set' is deprecated, use 'eval_X' and 'eval_y' instead.
+  eval_set = _validate_eval_set_Xy(eval_set=eval_set, eval_X=eval_X, eval_y=eval_y)
+/home/danh/venv-dacn/lib/python3.12/site-packages/lightgbm/sklearn.py:1106: LGBMDeprecationWarning: The argument 'eval_set' is deprecated, use 'eval_X' and 'eval_y' instead.
+  eval_set = _validate_eval_set_Xy(eval_set=eval_set, eval_X=eval_X, eval_y=eval_y)
+Chia theo meta_split (thoi gian): train=18377, val=5836, test=5817
+gen 1/20 | best Val Macro-F1 ~ 0.9644 | cache 24
+gen 2/20 | best Val Macro-F1 ~ 0.9647 | cache 48
+gen 3/20 | best Val Macro-F1 ~ 0.9647 | cache 72
+gen 4/20 | best Val Macro-F1 ~ 0.9647 | cache 96
+gen 5/20 | best Val Macro-F1 ~ 0.9655 | cache 120
+gen 6/20 | best Val Macro-F1 ~ 0.9655 | cache 144
+gen 7/20 | best Val Macro-F1 ~ 0.9655 | cache 168
+gen 8/20 | best Val Macro-F1 ~ 0.9655 | cache 192
+gen 9/20 | best Val Macro-F1 ~ 0.9655 | cache 216
+gen 10/20 | best Val Macro-F1 ~ 0.9655 | cache 240
+gen 11/20 | best Val Macro-F1 ~ 0.9655 | cache 264
+gen 12/20 | best Val Macro-F1 ~ 0.9659 | cache 288
+gen 13/20 | best Val Macro-F1 ~ 0.9659 | cache 312
+gen 14/20 | best Val Macro-F1 ~ 0.9659 | cache 336
+gen 15/20 | best Val Macro-F1 ~ 0.9659 | cache 360
+gen 16/20 | best Val Macro-F1 ~ 0.9659 | cache 384
+gen 17/20 | best Val Macro-F1 ~ 0.9659 | cache 408
+gen 18/20 | best Val Macro-F1 ~ 0.9670 | cache 432
+gen 19/20 | best Val Macro-F1 ~ 0.9670 | cache 456
+gen 20/20 | best Val Macro-F1 ~ 0.9670 | cache 480
+    solution  n_features  reduction_%  val_macro_f1  val_mcc  val_infer_s  test_macro_f1  test_mcc  test_infer_s           selected
+    pareto_2          18         74.6      0.952604 0.938184     0.269250       0.956362  0.947219      0.268504                   
+    pareto_9          19         73.2      0.951653 0.936590     0.338015       0.956448  0.945130      0.337994                   
+   pareto_11          20         71.8      0.947915 0.926690     0.261102       0.956660  0.937494      0.260555                   
+   pareto_14          20         71.8      0.951459 0.927086     0.349079       0.955444  0.934167      0.348353                   
+    pareto_4          21         70.4      0.957647 0.932132     0.525357       0.959330  0.938711      0.529130 chosen_delta(0.01)
+   pareto_16          21         70.4      0.947213 0.933798     0.334807       0.942045  0.929803      0.333907                   
+   pareto_22          22         69.0      0.959460 0.947378     0.277069       0.968905  0.960735      0.277301                   
+   pareto_10          22         69.0      0.945943 0.936470     0.316612       0.949053  0.941731      0.315901                   
+   pareto_15          23         67.6      0.951019 0.941053     0.258783       0.962799  0.956425      0.258300                   
+   pareto_18          23         67.6      0.949339 0.937459     0.375543       0.952053  0.942168      0.374599                   
+    pareto_7          23         67.6      0.960636 0.947841     0.243172       0.969928  0.960977      0.242053                   
+    pareto_1          24         66.2      0.950117 0.936765     0.354708       0.950336  0.941689      0.353842                   
+   pareto_13          24         66.2      0.959898 0.948580     0.248574       0.969993  0.960482      0.247481                   
+   pareto_12          25         64.8      0.959905 0.947869     0.287270       0.968512  0.960732      0.286848                   
+   pareto_23          25         64.8      0.964611 0.951274     0.246382       0.969960  0.960976      0.245778      knee_balanced
+   pareto_20          25         64.8      0.949070 0.937448     0.315495       0.949690  0.941210      0.314104                   
+   pareto_21          26         63.4      0.955510 0.939485     0.353069       0.964863  0.951869      0.352099                   
+    pareto_6          26         63.4      0.951354 0.944889     0.260354       0.961070  0.959314      0.258959                   
+   pareto_19          27         62.0      0.957835 0.947413     0.259550       0.968134  0.960489      0.258480                   
+   pareto_17          27         62.0      0.961803 0.949122     0.252851       0.971685  0.961958      0.251855                   
+    pareto_5          28         60.6      0.957534 0.947608     0.242313       0.968605  0.959766      0.240895                   
+    pareto_8          29         59.2      0.959758 0.947830     0.229337       0.970611  0.961470      0.228445                   
+    pareto_3          33         53.5      0.965371 0.951264     0.269162       0.974408  0.964377      0.267488                   
+    pareto_0          37         47.9      0.967008 0.957438     0.282830       0.973076  0.967721      0.281388                   
+baseline_all          71          0.0      0.964649 0.956229     0.279060       0.973361  0.967703      0.276710                   
