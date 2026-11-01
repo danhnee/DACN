@@ -14,7 +14,7 @@ from sklearn.preprocessing import LabelEncoder
 FORBIDDEN_KEYWORDS = ["device_name", "device_mac", "timestamp", "label1", "label3", "label4", "label_full"]
 
 
-def load_split(path, label="Attack"):
+def load_split(path, label=None):
     """
     Doc du lieu tu file Parquet, kiem tra so chieu dac trung va chia train/val/test.
     Tra ve:
@@ -23,6 +23,13 @@ def load_split(path, label="Attack"):
       classes: mang chua tat ca cac lop duy nhat (dung de co dinh mau so Macro-F1)
     """
     df = pd.read_parquet(path)
+    if label is None or label not in df.columns:
+        if "Attack" in df.columns:
+            label = "Attack"
+        elif "label" in df.columns:
+            label = "label"
+        else:
+            raise ValueError(f"Khong tim thay cot nhan phu hop trong {path}")
     feats = [c for c in df.columns if c != label and not c.startswith("meta_")]
     d = len(feats)
 
