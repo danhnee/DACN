@@ -72,7 +72,7 @@ def rank_boruta_lite(Xf, yf, seed, n_iter=20, n_rows=10000):
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--data", required=True)
-    ap.add_argument("--label", default="Attack")
+    ap.add_argument("--label", default=None, help="cot nhan (None de tu nhan dien Attack/label)")
     ap.add_argument("--outdir", required=True)
     ap.add_argument("--seed", type=int, default=1)
     ap.add_argument("--ks", type=int, nargs="*", default=None, help="cac gia tri k; mac dinh: luoi + kich thuoc Pareto")
@@ -116,7 +116,7 @@ def main():
             "method": method,
             "k": k,
             "run": seed_tag,
-            "features": ";".join(feats_arr[mask]) if method != "random" else ""
+            "features": ";".join(feats_arr[mask])
         })
         if extra:
             r.update(extra)
@@ -144,13 +144,13 @@ def main():
             add(name, k, 0, mask, True)
         save()
 
-    # 3) ngau nhien cung k
+    # 3) ngau nhien cung k (doc lap danh sach k bang default_rng([seed, k, r]))
     print("== random")
-    rng = np.random.default_rng(args.seed)
     for k in ks:
         for r in range(args.n_random):
+            rng_kr = np.random.default_rng([args.seed, k, r])
             mask = np.zeros(d, dtype=bool)
-            mask[rng.choice(d, k, replace=False)] = True
+            mask[rng_kr.choice(d, k, replace=False)] = True
             add("random", k, r, mask, args.time_random)
         save()
 

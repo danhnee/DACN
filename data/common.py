@@ -23,13 +23,16 @@ def load_split(path, label=None):
       classes: mang chua tat ca cac lop duy nhat (dung de co dinh mau so Macro-F1)
     """
     df = pd.read_parquet(path)
-    if label is None or label not in df.columns:
+    if label is not None:
+        if label not in df.columns:
+            raise ValueError(f"Loi: Cot nhan '{label}' duoc chi dinh khong ton tai trong {path}. Cac cot hop le: {list(df.columns[:10])}...")
+    else:
         if "Attack" in df.columns:
             label = "Attack"
         elif "label" in df.columns:
             label = "label"
         else:
-            raise ValueError(f"Khong tim thay cot nhan phu hop trong {path}")
+            raise ValueError(f"Khong tim thay cot nhan mac dinh ('Attack' hoac 'label') trong {path}")
     feats = [c for c in df.columns if c != label and not c.startswith("meta_")]
     d = len(feats)
 
@@ -57,7 +60,15 @@ def load_split(path, label=None):
         print(f"Chia phan tang 60/20/20: train={len(Xtr)}, val={len(Xva)}, test={len(Xte)} | d={d}")
 
     # Kiem tra so lop xuat hien trong tung tap
-    print(f"So lop duy nhat: train={len(np.unique(ytr))}/{len(classes)}, val={len(np.unique(yva))}/{len(classes)}, test={len(np.unique(yte))}/{len(classes)}")
+    n_total = len(classes)
+    n_tr = len(np.unique(ytr))
+    n_va = len(np.unique(yva))
+    n_te = len(np.unique(yte))
+    print(f"So lop duy nhat: train={n_tr}/{n_total}, val={n_va}/{n_total}, test={n_te}/{n_total}")
+    if n_va < n_total:
+        print(f"  [CANH BAO] Tap Validation bi thieu {n_total - n_va} lop so voi toan bo tap nhan ({n_va}/{n_total})!")
+    if n_te < n_total:
+        print(f"  [CANH BAO] Tap Test bi thieu {n_total - n_te} lop so voi toan bo tap nhan ({n_te}/{n_total})!")
 
     return feats, (Xtr, ytr, Xva, yva, Xte, yte), classes
 
@@ -130,9 +141,12 @@ def evaluate_solution(mask, data, classes, trees=150, seed=0, timing=True, repea
         "n_trees": trees,
     }
     if timing:
-        # Lay 5.000 mau dau tien cua Val va Test de do thoi gian suy luan danh gia cuoi
-        Xva_5k = np.ascontiguousarray(Xva[:5000][:, mask], dtype=np.float32)
-        Xte_5k = np.ascontiguousarray(Xte[:5000][:, mask], dtype=np.float32)
+        # Lay mau ngau nhien co dinh 5.000 dong tren Val va Test (default_rng(0)) de do thoi gian
+        rng_eval = np.random.default_rng(0)
+        idx_va = rng_eval.choice(len(Xva), min(5000, len(Xva)), replace=False)
+        idx_te = rng_eval.choice(len(Xte), min(5000, len(Xte)), replace=False)
+        Xva_5k = np.ascontiguousarray(Xva[idx_va][:, mask], dtype=np.float32)
+        Xte_5k = np.ascontiguousarray(Xte[idx_te][:, mask], dtype=np.float32)
         row["val_infer_s"] = measure_infer_time(m, Xva_5k, repeats=repeats)
         row["test_infer_s"] = measure_infer_time(m, Xte_5k, repeats=repeats)
     return row, m

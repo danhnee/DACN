@@ -43,14 +43,34 @@ class FSProblem(ElementwiseProblem):
         idx_time = rng.choice(len(Xva), min(N_TIME_LOOP, len(Xva)), replace=False)
         self.Xva_time = np.ascontiguousarray(Xva[idx_time], dtype=np.float32)
 
-        # Khoi phuc bo nho dem tu dia neu co de tranh tinh lai khi resume
+        # Thiet lap cau hinh de xac thuc cache
+        self.config_meta = {
+            "n_var": int(Xtr.shape[1]),
+            "n_tr": int(Xtr.shape[0]),
+            "n_va": int(Xva.shape[0]),
+            "classes": [int(c) for c in classes],
+            "seed": int(seed),
+            "trees": 60,
+        }
+
+        # Khoi phuc bo nho dem tu dia neu khop cau hinh
         self.cache_path = cache_path
         self.cache = {}
         if cache_path and os.path.exists(cache_path):
             try:
                 with open(cache_path, "rb") as f:
-                    self.cache = pickle.load(f)
-                print(f"  [Cache] Da nạp {len(self.cache)} tap dac trung tu dia ({cache_path})")
+                    loaded = pickle.load(f)
+                if isinstance(loaded, dict) and "config" in loaded and "cache" in loaded:
+                    if loaded["config"] == self.config_meta:
+                        self.cache = loaded["cache"]
+                        print(f"  [Cache] Da nap {len(self.cache)} tap dac trung tu dia ({cache_path})")
+                    else:
+                        print(f"  [Cache] Cau hinh khong khop voi cache cu, khoi tao moi.")
+                        self.cache = {}
+                elif isinstance(loaded, dict):
+                    # Ho tro nguoc dinh dang cache cu
+                    self.cache = loaded
+                    print(f"  [Cache] Da nap {len(self.cache)} tap dac trung tu cache cu ({cache_path})")
             except Exception as e:
                 print(f"  [Cache] Khong doc duoc cache: {e}, khoi tao rong.")
                 self.cache = {}
@@ -78,13 +98,13 @@ class FSProblem(ElementwiseProblem):
     def save_cache(self):
         if self.cache_path:
             with open(self.cache_path, "wb") as f:
-                pickle.dump(self.cache, f)
+                pickle.dump({"config": self.config_meta, "cache": self.cache}, f)
 
 
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--data", required=True)
-    ap.add_argument("--label", default="Attack")
+    ap.add_argument("--label", default=None, help="cot nhan (None de tu nhan dien Attack/label)")
     ap.add_argument("--outdir", required=True)
     ap.add_argument("--pop", type=int, default=24)
     ap.add_argument("--gen", type=int, default=20)
@@ -102,7 +122,7 @@ def main():
         Xfit, yfit = subsample(Xtr, ytr, args.n_fit, args.seed)
     else:
         Xfit, yfit = Xtr, ytr
-    Xva_s, yva_s = Xva[:20000], yva[:20000]
+    Xva_s, yva_s = Xva, yva
 
     state_path = os.path.join(args.outdir, "state.json")
     pop_path = os.path.join(args.outdir, "pop.npy")
@@ -128,6 +148,7 @@ def main():
     if remaining <= 0:
         print(f"Da chay du {done}/{args.gen} the he NSGA-II. Bo qua tien hoa, tien hanh danh gia nghiem.")
     else:
+        term_gen = remaining + 1 if done > 0 else remaining
         algo = NSGA2(
             pop_size=args.pop,
             sampling=sampling,
@@ -135,9 +156,13 @@ def main():
             mutation=BitflipMutation(),
             eliminate_duplicates=True,
         )
-        algo.setup(problem, termination=("n_gen", remaining), seed=args.seed, verbose=False)
+        algo.setup(problem, termination=("n_gen", term_gen), seed=args.seed, verbose=False)
+        is_first_after_resume = (done > 0)
         while algo.has_next():
             algo.next()
+            if is_first_after_resume:
+                is_first_after_resume = False
+                continue
             done += 1
             np.save(pop_path, algo.pop.get("X"))
             with open(state_path, "w") as f:
@@ -203,12 +228,9 @@ def main():
     if len(pareto_df) > 1:
         f1_loss = 1.0 - pareto_df["val_macro_f1"].to_numpy()
         f2_norm = pareto_df["n_features"].to_numpy() / len(feats)
-        f3_raw = pareto_df["val_infer_s"].to_numpy()
-        M = np.vstack([f1_loss, f2_norm, f3_raw]).T
-        ptp = np.ptp(M, axis=0)
-        ptp[ptp == 0] = 1.0
-        M_norm = (M - M.min(axis=0)) / ptp
-        knee_idx = pareto_df.index[np.argmin(np.linalg.norm(M_norm, axis=1))]
+        # Tinh Knee tren (f1, f2) voi can co dinh [0, 1] den diem ly tuong (0, 0)
+        dist_ideal = np.sqrt(f1_loss ** 2 + f2_norm ** 2)
+        knee_idx = pareto_df.index[np.argmin(dist_ideal)]
         cur_tag = out.loc[knee_idx, "selected"]
         out.loc[knee_idx, "selected"] = (cur_tag + ";knee_balanced").strip(";")
 
