@@ -264,14 +264,15 @@ def create_report():
     r_names = p_sign.add_run("Nguyễn Minh Nhật (Chủ biên Tuần 3) & Nguyễn Thành Danh (Trưởng nhóm)")
     r_names.bold = True
 
-    output_path = "/home/danh/dacn/BaoCao_Tuan3_Nhom9.docx"
+    output_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "BaoCao_Tuan3_Nhom9.docx")
     doc.save(output_path)
     print(f"Report generated successfully at: {output_path}")
 
-    # Copy to /home/danh and Downloads
-    shutil.copy(output_path, "/home/danh/BaoCao_Tuan3_Nhom9.docx")
-    shutil.copy(output_path, "/home/danh/Downloads/BaoCao_Tuan3_Nhom9.docx")
-    print("Copied to /home/danh/ and /home/danh/Downloads/ successfully.")
+    # Copy to /home/danh/Downloads if exists
+    downloads_dir = "/home/danh/Downloads"
+    if os.path.exists(downloads_dir):
+        shutil.copy(output_path, os.path.join(downloads_dir, "BaoCao_Tuan3_Nhom9.docx"))
+        print(f"Copied to {downloads_dir}/ successfully.")
 
 if __name__ == "__main__":
     create_report()
