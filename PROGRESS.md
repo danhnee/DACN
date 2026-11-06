@@ -33,6 +33,14 @@
 | Script benchmark (warm-up 10, lặp 30) | Nhật | T7 | ✅ Xong | `scripts/benchmark_edge.py` | Đo latency và peak RAM trên E1/E2 |
 | Báo cáo tiến độ Tuần 3 cho GVHD | Nhật (Chủ biên), Danh | CN | ✅ Xong | `BaoCao_Tuan3_Nhom9.docx` | Đã xuất file và soạn thảo email |
 
+### Tuần 4 (Đang triển khai)
+| Việc | Người phụ trách | Hạn | Trạng thái | Sản phẩm (file) | Ghi chú |
+|---|---|---|---|---|---|
+| Chạy lại 5 baseline chuẩn hóa v2 (DataSense s42) | Nam, Danh | T2 | ✅ Xong | `results/v2_base_datasense_s42/` | All 71 feats F1=0.9738, 20 random runs/k |
+| Chạy lại NSGA-II v2 (DataSense s42) | Danh | T3 | ⏳ Đang chờ xác nhận | `results/v2_ds_s42/` | Pop 24, Gen 20 (480 evals), Knee cố định |
+| Mở rộng thực nghiệm 6 seeds (s42–s47) | Danh, Nam | T5 | ⏳ Kế hoạch | `results/` | Phục vụ kiểm định Wilcoxon |
+| Đo hiệu năng biên E1/E2 với RSS RAM | Nhật | T6 | ⏳ Kế hoạch | `results/edge_benchmark_summary_v2.csv` | Giới hạn tài nguyên thực tế |
+
 ## Bàn giao giữa các bạn
 | Từ | Cho | Sản phẩm | Hạn | Đã giao? |
 |---|---|---|---|---|
