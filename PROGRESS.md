@@ -1,8 +1,9 @@
-# PROGRESS — Nhóm 9 — cập nhật lần cuối: 2026-11-01 23:00 bởi Agent
+# PROGRESS — Nhóm 9 — cập nhật lần cuối: 2026-11-06 20:30 bởi Agent
 
 ## Trạng thái hiện tại
-- Tuần: 4 / 10   Giai đoạn: Chạy thực nghiệm đa mục tiêu NSGA-II chính thức & Đánh giá đối chứng
-- Tình trạng so với lịch: Đúng và vượt tiến độ kỹ thuật; Hoàn tất báo cáo tuần 2 & tuần 3; Đã khắc phục an toàn sự cố phần cứng ổ đĩa.
+- Tuần: 4 / 10   Giai đoạn: Chạy thực nghiệm đa mục tiêu NSGA-II chính thức & Đánh giá đối chứng v2
+- Workspace chính: `/mnt/EEAADB20AADAE3DD/Users/Danh/Documents/dacn/` (phân vùng NTFS dùng chung cho Linux & Windows).
+- Tình trạng so với lịch: Chuẩn hóa 10 bản vá A.1–A.10; Đã nộp báo cáo Tuần 3; Sẵn sàng thực nghiệm v2.
 - Người đang dùng agent: Nguyễn Thành Danh (Lead)
 - Trạng thái phân vai (Roles): Đã chốt theo đúng AGENTS.md:
   * Nguyễn Thành Danh: Lead, lõi NSGA-II
@@ -53,10 +54,15 @@
 - 2026-10-28: Hoàn tất bản vá mã nguồn toàn diện: tách `common.py`, cố định hàm `evaluate_solution` 150 cây, lưu `cache.pkl` ra đĩa, kiểm tra cứng $d \in (71, 39)$, sửa lỗi resume checkpoint và cố định labels tính Macro-F1.
 - 2026-10-28: Chốt lại vai trò nhóm đúng theo `AGENTS.md`.
 - 2026-11-01: Hoàn tất script đo lường biên `scripts/benchmark_edge.py` và hoàn thành `BaoCao_Tuan3_Nhom9.docx`.
+- 2026-11-06: Hoàn tất 10 bản vá A.1–A.10 (resume gen, băm cache, đo ngẫu nhiên 5k mẫu, Knee xác định, độc lập random mask, whitelist 71 feats, chẩn đoán shortcut).
+- 2026-11-06: Chuyển không gian làm việc chính sang `/mnt/EEAADB20AADAE3DD/Users/Danh/Documents/dacn/` (phân vùng NTFS dùng chung giữa Linux và Windows).
+- 2026-11-06: Thống nhất chạy lại toàn bộ thuật toán mới (kết quả lưu `results/v2_...`, không ghi đè kết quả cũ) để đảm bảo tính nhất quán khoa học 100%.
+- 2026-11-06: Thiết lập cơ chế đồng bộ ngữ cảnh thường xuyên qua GitHub cho môi trường dual-boot và luôn yêu cầu người dùng xác nhận trước khi chạy thực nghiệm.
 
 ## Báo cáo tuần
 | Tuần | Chủ biên | Đã gửi GVHD? | Phản hồi của GVHD |
 |---|---|---|---|
 | Tuần 1 | Danh | Đã soạn (`BaoCao_Tuan1_Nhom9.docx`) | Đã hoàn tất |
 | Tuần 2 | Nam | Đã soạn (`BaoCao_Tuan2_Nhom9.docx`) | Sẵn sàng gửi |
-| Tuần 3 | Nhật | Đã soạn (`BaoCao_Tuan3_Nhom9.docx`) | Sẵn sàng gửi |
+| Tuần 3 | Nhật | Đã soạn (`BaoCao_Tuan3_Nhom9.docx`) | Đã gửi mail & sẵn sàng nghiệm thu |
+| Tuần 4 | Danh | Đang triển khai | Chạy lại NSGA-II 6 seeds & baseline chuẩn hóa v2 |
