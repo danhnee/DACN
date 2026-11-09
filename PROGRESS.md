@@ -40,7 +40,7 @@
 | Chạy lại NSGA-II v2 (DataSense s42) | Danh | T3 | ✅ Xong | `results/v2_ds_s42/` | 480 evals; Delta: k=17 F1=0.9700; Knee: k=13 F1=0.9501 |
 | Chạy lại 5 baseline chuẩn hóa v2 (NF-UQ s42) | Nam, Danh | T4 | ✅ Xong | `results/v2_base_nfuq_s42/` | All 39 feats F1=0.8872, 20 random runs/k |
 | Chạy lại NSGA-II v2 trên NF-UQ (s42) | Danh | T4 | ✅ Xong | `results/v2_nfuq_s42/` | 477 evals; Delta: k=13 F1=0.8808; Knee: k=9 F1=0.8396 |
-| Mở rộng thực nghiệm 6 seeds (s42–s47) | Danh, Nam | T5 | ⏳ Đang triển khai | `results/` | Đã xong: s42 (cả 2 data), s43 (DataSense: Delta k=23 F1=0.9681) |
+| Mở rộng thực nghiệm 6 seeds (s42–s47) | Danh, Nam | T5 | ⏳ Đang triển khai | `results/` | Đã xong s42 & s43 (cả 2 data: DS s43 Delta k=23 F1=0.9681; NF-UQ s43 Delta k=10 F1=0.8765) |
 | Đo hiệu năng biên E1/E2 với RSS RAM | Nhật | T6 | ⏳ Kế hoạch | `results/edge_benchmark_summary_v2.csv` | Giới hạn tài nguyên thực tế |
 
 ## Bàn giao giữa các bạn
