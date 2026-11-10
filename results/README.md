@@ -15,14 +15,14 @@ results/
 ├── README.md                                # [Tệp này] Tài liệu mô tả cấu trúc và tổng hợp số liệu
 │
 ├── [THỰC NGHIỆM CHUẨN HÓA V2 - DATASENSE IIOT 2025]
-├── v2_ds_s42/ ~ s44/                        # NSGA-II v2 trên DataSense (24 pop, 20 gen, 480 evals)
+├── v2_ds_s42/ ~ s45/                        # NSGA-II v2 trên DataSense (24 pop, 20 gen, 480 evals)
 │   ├── final_eval.csv                       # Đánh giá 24 nghiệm Pareto trên Val & Test (150 cây cố định)
 │   ├── pareto_F.npy                         # Ma trận 3 mục tiêu [1-F1, |S|/d, t_pred] của nghiệm không trội
 │   ├── pareto_X.npy                         # Mặt nạ nhị phân boolean (chọn/bỏ) tương ứng của các nghiệm Pareto
 │   ├── pop.npy                              # Quần thể cá thể ở thế hệ 20
 │   ├── state.json                           # Checkpoint thế hệ {"gen": 20}
 │   └── cache.pkl                            # Bộ nhớ đệm băm cấu hình config_meta
-├── v2_base_datasense_s42/ ~ s44/            # 5 Baseline đối chứng v2 trên DataSense (10 mức k, 20 runs/k)
+├── v2_base_datasense_s42/ ~ s45/            # 5 Baseline đối chứng v2 trên DataSense (10 mức k, 20 runs/k)
 │   ├── baselines_eval.csv                   # Chi tiết từng lượt chạy đơn lẻ (gồm 20 runs random/k)
 │   └── baselines_summary.csv                # Bảng tổng hợp theo phương pháp và số đặc trưng k
 │
@@ -64,7 +64,7 @@ results/
 
 ---
 
-## 3. TỔNG HỢP SỐ LIỆU ĐA SEED V2 (SEEDS 42, 43, 44)
+## 3. TỔNG HỢP SỐ LIỆU ĐA SEED V2 (SEEDS 42, 43, 44, 45)
 
 ### 3.1. Dữ liệu DataSense IIoT 2025 (71 đặc trưng, chia thời gian 60/20/20)
 *Toàn bộ đặc trưng (`all`, $k=71$): Val Macro-F1 = 0.9700, Test Macro-F1 = **0.9738**, Test MCC = 0.9677.*
@@ -77,7 +77,9 @@ results/
 | | Nghiệm cân bằng (Knee) | 18 | 74.6% | 0.9273 | 0.9432 | 0.9300 | `v2_ds_s43/final_eval.csv` |
 | **s44** | **Nghiệm chọn $\delta = 1\%$** | **18** | **74.6%** | **0.9630** | **0.9708** | **0.9605** | `v2_ds_s44/final_eval.csv` |
 | | Nghiệm cân bằng (Knee) | 15 | 78.9% | 0.9274 | 0.9375 | 0.9274 | `v2_ds_s44/final_eval.csv` |
-| **Trung bình** | **Nghiệm chọn $\delta = 1\%$** | **19.3 $\pm$ 3.2** | **72.8%** | **0.9650** | **0.9696 $\pm$ 0.0014** | **0.9608** | *(Tổng hợp 3 seed)* |
+| **s45** | **Nghiệm chọn $\delta = 1\%$** | **19** | **73.2%** | **0.9623** | **0.9684** | **0.9624** | `v2_ds_s45/final_eval.csv` |
+| | Nghiệm cân bằng (Knee) | 12 | 83.1% | 0.9298 | 0.9358 | 0.9341 | `v2_ds_s45/final_eval.csv` |
+| **Trung bình** | **Nghiệm chọn $\delta = 1\%$** | **19.3 $\pm$ 2.6** | **72.9%** | **0.9643** | **0.9693 $\pm$ 0.0013** | **0.9612** | *(Tổng hợp 4 seed)* |
 
 **So sánh đối chứng với các Baseline trên DataSense (Test Macro-F1 trung bình 3 seed):**
 - Tại vùng $k \approx 18 - 20$:
