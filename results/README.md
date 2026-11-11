@@ -27,11 +27,11 @@ results/
 │   └── baselines_summary.csv                # Bảng tổng hợp theo phương pháp và số đặc trưng k
 │
 ├── [THỰC NGHIỆM CHUẨN HÓA V2 - NF-UQ-NIDS-V2]
-├── v2_nfuq_s42/ ~ s45/                      # NSGA-II v2 trên NF-UQ (167k mẫu, 21 lớp, 39 đặc trưng)
+├── v2_nfuq_s42/ ~ s46/                      # NSGA-II v2 trên NF-UQ (167k mẫu, 21 lớp, 39 đặc trưng)
 │   ├── final_eval.csv                       # Đánh giá chi tiết nghiệm Pareto trên Val & Test
 │   ├── pareto_F.npy, pareto_X.npy           # Nghiệm không trội & mặt nạ nhị phân
 │   ├── pop.npy, state.json, cache.pkl       # Checkpoint tiến hóa và bộ nhớ đệm
-├── v2_base_nfuq_s42/ ~ s45/                 # 5 Baseline đối chứng v2 trên NF-UQ (7 mức k, 20 runs/k)
+├── v2_base_nfuq_s42/ ~ s46/                 # 5 Baseline đối chứng v2 trên NF-UQ (7 mức k, 20 runs/k)
 │   ├── baselines_eval.csv, baselines_summary.csv
 │
 ├── [ĐO HIỆU NĂNG TRÊN THIẾT BỊ BIÊN GIẢ LẬP E1 / E2]
@@ -106,7 +106,9 @@ results/
 | | Nghiệm cân bằng (Knee) | 7 | 82.1% | 0.8255 | 0.8314 | 0.8654 | `v2_nfuq_s44/final_eval.csv` |
 | **s45** | **Nghiệm chọn $\delta = 1\%$** | **14** | **64.1%** | **0.8782** | **0.8821** | **0.8856** | `v2_nfuq_s45/final_eval.csv` |
 | | Nghiệm cân bằng (Knee) | 5 | 87.2% | 0.8150 | 0.8223 | 0.8301 | `v2_nfuq_s45/final_eval.csv` |
-| **Trung bình** | **Nghiệm chọn $\delta = 1\%$** | **13.0 $\pm$ 2.2** | **66.7%** | **0.8763** | **0.8802 $\pm$ 0.0025** | **0.8867** | *(Tổng hợp 4 seed)* |
+| **s46** | **Nghiệm chọn $\delta = 1\%$** | **14** | **64.1%** | **0.8746** | **0.8797** | **0.8872** | `v2_nfuq_s46/final_eval.csv` |
+| | Nghiệm cân bằng (Knee) | 6 | 84.6% | 0.8416 | 0.8489 | 0.8687 | `v2_nfuq_s46/final_eval.csv` |
+| **Trung bình** | **Nghiệm chọn $\delta = 1\%$** | **13.2 $\pm$ 1.9** | **66.2%** | **0.8759** | **0.8801 $\pm$ 0.0022** | **0.8868** | *(Tổng hợp 5 seed)* |
 
 **So sánh đối chứng với các Baseline trên NF-UQ (Test Macro-F1 trung bình 3 seed):**
 - Tại vùng $k \approx 13 - 15$:
