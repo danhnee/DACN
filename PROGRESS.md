@@ -1,4 +1,4 @@
-# PROGRESS — Nhóm 9 — cập nhật lần cuối: 2026-11-11 07:35 bởi Agent
+# PROGRESS — Nhóm 9 — cập nhật lần cuối: 2026-11-11 12:20 bởi Agent
 
 ## Trạng thái hiện tại
 - Tuần: 4 / 10   Giai đoạn: Chạy thực nghiệm đa mục tiêu NSGA-II chính thức & Đánh giá đối chứng v2
@@ -40,7 +40,7 @@
 | Chạy lại NSGA-II v2 (DataSense s42) | Danh | T3 | ✅ Xong | `results/v2_ds_s42/` | 480 evals; Delta: k=17 F1=0.9700; Knee: k=13 F1=0.9501 |
 | Chạy lại 5 baseline chuẩn hóa v2 (NF-UQ s42) | Nam, Danh | T4 | ✅ Xong | `results/v2_base_nfuq_s42/` | All 39 feats F1=0.8872, 20 random runs/k |
 | Chạy lại NSGA-II v2 trên NF-UQ (s42) | Danh | T4 | ✅ Xong | `results/v2_nfuq_s42/` | 477 evals; Delta: k=13 F1=0.8808; Knee: k=9 F1=0.8396 |
-| Mở rộng thực nghiệm 6 seeds (s42–s47) | Danh, Nam | T5 | ⏳ Đang triển khai | `results/` | Đã xong s42, s43, s44, s45 (cả 2 data: DS s45 Delta k=19 F1=0.9684; NF-UQ s45 Delta k=14 F1=0.8821) |
+| Mở rộng thực nghiệm 6 seeds (s42–s47) | Danh, Nam | T5 | ⏳ Đang triển khai | `results/` | Đã xong s42–s45 (cả 2 data); DataSense s46 (Delta k=24 F1=0.9669, Knee k=20 F1=0.9634) |
 | Đo hiệu năng biên E1/E2 với RSS RAM | Nhật | T6 | ⏳ Kế hoạch | `results/edge_benchmark_summary_v2.csv` | Giới hạn tài nguyên thực tế |
 
 ## Bàn giao giữa các bạn
