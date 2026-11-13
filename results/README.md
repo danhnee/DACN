@@ -16,7 +16,7 @@ results/
 │
 ├── [THỰC NGHIỆM CHUẨN HÓA V2 - DATASENSE IIOT 2025]
 ├── v2_ds_s42/ ~ s47/                        # NSGA-II v2 trên DataSense (24 pop, 20 gen, 480 evals)
-│   ├── final_eval.csv                       # Đánh giá 24 nghiệm Pareto trên Val & Test (150 cây cố định)
+│   ├── final_eval.csv                       # Đánh giá các nghiệm Pareto trên Val & Test (150 cây cố định)
 │   ├── pareto_F.npy                         # Ma trận 3 mục tiêu [1-F1, |S|/d, t_pred] của nghiệm không trội
 │   ├── pareto_X.npy                         # Mặt nạ nhị phân boolean (chọn/bỏ) tương ứng của các nghiệm Pareto
 │   ├── pop.npy                              # Quần thể cá thể ở thế hệ 20
@@ -27,16 +27,16 @@ results/
 │   └── baselines_summary.csv                # Bảng tổng hợp theo phương pháp và số đặc trưng k
 │
 ├── [THỰC NGHIỆM CHUẨN HÓA V2 - NF-UQ-NIDS-V2]
-├── v2_nfuq_s42/ ~ s46/                      # NSGA-II v2 trên NF-UQ (167k mẫu, 21 lớp, 39 đặc trưng)
+├── v2_nfuq_s42/ ~ s47/                      # NSGA-II v2 trên NF-UQ (167k mẫu, 21 lớp, 39 đặc trưng)
 │   ├── final_eval.csv                       # Đánh giá chi tiết nghiệm Pareto trên Val & Test
 │   ├── pareto_F.npy, pareto_X.npy           # Nghiệm không trội & mặt nạ nhị phân
 │   ├── pop.npy, state.json, cache.pkl       # Checkpoint tiến hóa và bộ nhớ đệm
-├── v2_base_nfuq_s42/ ~ s46/                 # 5 Baseline đối chứng v2 trên NF-UQ (7 mức k, 20 runs/k)
+├── v2_base_nfuq_s42/ ~ s47/                 # 5 Baseline đối chứng v2 trên NF-UQ (7 mức k, 20 runs/k)
 │   ├── baselines_eval.csv, baselines_summary.csv
 │
 ├── [ĐO HIỆU NĂNG TRÊN THIẾT BỊ BIÊN GIẢ LẬP E1 / E2]
-├── edge_benchmark_summary.csv               # Kết quả đo latency (IQR) và RSS RAM trên E1 (1 CPU, 512MB RAM)
-├── edge_benchmark_summary_E2.csv            # Kết quả đo latency và RSS RAM trên E2 (2 CPU, 1GB RAM)
+├── edge_benchmark_summary.csv               # Kết quả đo latency (IQR) và Peak RSS trên E1 giả lập (1 vCPU qua affinity core 0)
+├── edge_benchmark_summary_E2.csv            # Kết quả đo latency và Peak RAM trên E2 giả lập (2 vCPUs qua affinity cores 0, 1)
 │
 └── [LƯU TRỮ LỊCH SỬ V1 (SMOKE TEST & CHẠY SƠ BỘ TRƯỚC VÁ MÃ NGUỒN)]
     ├── ds_s42/, base_ds_s42/, base_nfuq_s42/
@@ -49,12 +49,12 @@ results/
 ## 2. QUY CHUẨN THỰC NGHIỆM V2 (CHUẨN HÓA A.1 – A.10)
 
 Để bảo đảm tính liêm chính và nhất quán khoa học 100%, toàn bộ kết quả trong các thư mục `v2_...` tuân thủ nghiêm ngặt 10 nguyên tắc sau:
-1. **Mục tiêu $f_3$ (Thời gian suy luận):** Đo trên $2.000$ mẫu Validation ngẫu nhiên cố định (lấy bằng `rng.choice(len(Xva), 2000, replace=False)`) thay vì cắt lát tuần tự, lặp 3 lần lấy trung vị ($n\_jobs=1$).
+1. **Mục tiêu $f_3$ (Thời gian suy luận):** Đo trên $2.000$ mẫu Validation ngẫu nhiên cố định (lấy bằng `rng.choice(len(Xva), 2000, replace=False)`) thay vì cắt lát tuần tự, lặp 3 lần lấy trung vị ($n\_jobs=1$). *Lưu ý: Mọi số đo thời gian ngoài E1/E2 đều ghi nhận nhãn "máy phát triển" (CPU Intel Core i3, không giới hạn CPU affinity).*
 2. **Bảo vệ Cache bằng băm cấu hình (`config_meta`):** Checkpoint `cache.pkl` lưu kèm siêu dữ liệu cấu hình ($n\_var, n\_tr, n\_va, classes, seed, trees$), nếu khác biệt sẽ tự động tạo mới, ngăn chặn tuyệt đối dùng lẫn cache.
 3. **Cơ chế khôi phục thế hệ chính xác:** Sửa lỗi lệch số vòng lặp khi resume trong `pymoo` (`remaining + 1` khi khôi phục checkpoint).
 4. **Độc lập hạt giống ngẫu nhiên cho Baseline Random:** Khởi tạo `default_rng([seed, k, r])` độc lập hoàn toàn giữa các giá trị $k$ và lượt lặp $r$, loại bỏ hiện tượng tập con $k$ lớn bị phụ thuộc tập con $k$ nhỏ.
 5. **Số lượt lặp Random:** Tăng lên **20 lượt chạy ngẫu nhiên độc lập** cho mỗi mức $k$ để báo cáo kỳ vọng và độ lệch chuẩn tin cậy.
-6. **Xác định nghiệm Knee cân bằng:** Tính khoảng cách Euclid tới điểm lý tưởng $(0, 0)$ trên không gian chuẩn hóa $(f_1, f_2)$ với $f_1 = 1 - \text{Val F1} \in [0, 1]$ và $f_2 = |S|/d \in [0, 1]$.
+6. **Xác định nghiệm Knee cân bằng:** Tính khoảng cách Euclid tới điểm lý tưởng $(0, 0)$ trên không gian chuẩn hóa $(f_1, f_2)$ với $f_1 = 1 - \text{Val F1} \in [0, 1]$ và $f_2 = |S|/d \in [0, 1]$ (loại bỏ $f_3$ khỏi khoảng cách Knee do $f_3$ bị chi phối bởi độ nhiễu đo lặp CPU).
 7. **Cố định số cây đánh giá:** Toàn bộ nghiệm Pareto và các Baseline đều được đánh giá bằng LightGBM với **cố định 150 cây** (`n_estimators=150`, không early stopping).
 8. **Đồng nhất số mức $k$ so sánh:**
    - **DataSense (71 đặc trưng):** 10 mức $k \in \{5, 10, 15, 20, 25, 30, 35, 40, 50, 60\}$.
@@ -71,8 +71,8 @@ results/
 
 | Seed | Nghiệm | Số đặc trưng $k$ | Tỷ lệ giảm | Val Macro-F1 | Test Macro-F1 | Test MCC | Nguồn tệp CSV |
 |:---:|---|:---:|:---:|:---:|:---:|:---:|---|
-| **s42** | **Nghiệm chọn $\delta = 1\%$** | **17** | **76.1%** | **0.9669** | **0.9700** | **0.9601** | `v2_ds_s42/final_eval.csv` |
-| | Nghiệm cân bằng (Knee) | 13 | 81.7% | 0.9404 | 0.9501 | 0.9416 | `v2_ds_s42/final_eval.csv` |
+| **s42** | **Nghiệm chọn $\delta = 1\%$** | **17** | **76.1%** | **0.9611** | **0.9700** | **0.9581** | `v2_ds_s42/final_eval.csv` |
+| | Nghiệm cân bằng (Knee) | 13 | 81.7% | 0.9468 | 0.9501 | 0.9416 | `v2_ds_s42/final_eval.csv` |
 | **s43** | **Nghiệm chọn $\delta = 1\%$** | **23** | **67.6%** | **0.9651** | **0.9681** | **0.9619** | `v2_ds_s43/final_eval.csv` |
 | | Nghiệm cân bằng (Knee) | 18 | 74.6% | 0.9273 | 0.9432 | 0.9300 | `v2_ds_s43/final_eval.csv` |
 | **s44** | **Nghiệm chọn $\delta = 1\%$** | **18** | **74.6%** | **0.9630** | **0.9708** | **0.9605** | `v2_ds_s44/final_eval.csv` |
@@ -83,15 +83,19 @@ results/
 | | Nghiệm cân bằng (Knee) | 20 | 71.8% | 0.9514 | 0.9634 | 0.9545 | `v2_ds_s46/final_eval.csv` |
 | **s47** | **Nghiệm chọn $\delta = 1\%$** | **17** | **76.1%** | **0.9649** | **0.9728** | **0.9625** | `v2_ds_s47/final_eval.csv` |
 | | Nghiệm cân bằng (Knee) | 14 | 80.3% | 0.9340 | 0.9375 | 0.9321 | `v2_ds_s47/final_eval.csv` |
-| **Trung bình** | **Nghiệm chọn $\delta = 1\%$** | **19.7 $\pm$ 2.9** | **72.3%** | **0.9638** | **0.9695 $\pm$ 0.0020** | **0.9615** | *(Tổng hợp 6 seed)* |
+| **Trung bình** | **Nghiệm chọn $\delta = 1\%$** | **19.7 $\pm$ 3.1** | **72.3%** | **0.9628 $\pm$ 0.0019** | **0.9695 $\pm$ 0.0021** | **0.9612 $\pm$ 0.0017** | *(Tổng hợp 6 seed, ddof=1)* |
 
-**So sánh đối chứng với các Baseline trên DataSense (Test Macro-F1 trung bình 3 seed):**
-- Tại vùng $k \approx 18 - 20$:
-  + **NSGA-II (Nghiệm $\delta$, $k \approx 19$):** **0.9696**
-  + **Boruta rút gọn ($k=20$):** 0.9684
-  + **LightGBM Gain ($k=20$):** 0.9687
+*(Ghi chú về độ lệch chuẩn: Nếu dùng độ lệch chuẩn tổng thể ddof=0, ta có: $k = 19.7 \pm 2.8$, Test Macro-F1 = $0.9695 \pm 0.0020$, Test MCC = $0.9612 \pm 0.0015$).*
+
+**Đối chiếu sơ bộ với Baseline trên DataSense (Tổng hợp 6 seeds s42–s47):**
+> ⚠️ **Lưu ý quan trọng về đối chứng Baseline:** Lưới $k$ cũ của Baseline ($\{5, 10, 15, 20, ...\}$) không chứa các giá trị $k$ thực tế của nghiệm $\delta$ NSGA-II ($k \in \{17, 18, 19, 23, 24\}$). Do đó, việc đặt cạnh Baseline tại $k=20$ dưới đây chỉ mang tính chất tham khảo sơ bộ. Theo quy định công bằng tại AGENTS.md Mục 4.2 (cùng $k$, cùng seed, cùng số cây), nhóm sẽ thực hiện chạy lại các Baseline tại đúng từng mức $k$ thực tế của từng nghiệm NSGA-II (lưu tại `results/v3_base_...`) trước khi thực hiện kiểm định Wilcoxon.
+
+- **NSGA-II (Nghiệm $\delta$, $k \in \{17..24\}$, trung bình $k=19.7$):** Test Macro-F1 = **0.9695 $\pm$ 0.0021**
+- **Đối chiếu tại mốc $k=20$ của Baseline (trung bình 6 seeds):**
+  + **Boruta rút gọn ($k=20$):** 0.9684 *(chênh lệch so với NSGA-II $\Delta = +0.0011$, nhỏ hơn độ lệch chuẩn giữa các seed $\sigma = 0.0021$, do đó hiệu năng là tương đương)*
+  + **LightGBM Gain ($k=20$):** 0.9687 *(chênh lệch $\Delta = +0.0008 < \sigma$, hiệu năng tương đương)*
   + **Mutual Information ($k=20$):** 0.9664
-  + **Random Selection ($k=20$, 20 runs):** 0.9498 $\pm$ 0.012
+  + **Random Selection ($k=20$, 20 runs/seed):** 0.9498 $\pm$ 0.0120
 
 ---
 
@@ -100,57 +104,83 @@ results/
 
 | Seed | Nghiệm | Số đặc trưng $k$ | Tỷ lệ giảm | Val Macro-F1 | Test Macro-F1 | Test MCC | Nguồn tệp CSV |
 |:---:|---|:---:|:---:|:---:|:---:|:---:|---|
-| **s42** | **Nghiệm chọn $\delta = 1\%$** | **13** | **66.7%** | **0.8767** | **0.8808** | **0.8875** | `v2_nfuq_s42/final_eval.csv` |
-| | Nghiệm cân bằng (Knee) | 9 | 76.9% | 0.8354 | 0.8396 | 0.8687 | `v2_nfuq_s42/final_eval.csv` |
-| **s43** | **Nghiệm chọn $\delta = 1\%$** | **10** | **74.4%** | **0.8745** | **0.8765** | **0.8860** | `v2_nfuq_s43/final_eval.csv` |
-| | Nghiệm cân bằng (Knee) | 6 | 84.6% | 0.8491 | 0.8543 | 0.8732 | `v2_nfuq_s43/final_eval.csv` |
+| **s42** | **Nghiệm chọn $\delta = 1\%$** | **13** | **66.7%** | **0.8743** | **0.8808** | **0.8862** | `v2_nfuq_s42/final_eval.csv` |
+| | Nghiệm cân bằng (Knee) | 9 | 76.9% | 0.8361 | 0.8396 | 0.8503 | `v2_nfuq_s42/final_eval.csv` |
+| **s43** | **Nghiệm chọn $\delta = 1\%$** | **10** | **74.4%** | **0.8751** | **0.8765** | **0.8806** | `v2_nfuq_s43/final_eval.csv` |
+| | Nghiệm cân bằng (Knee) | 6 | 84.6% | 0.8510 | 0.8543 | 0.8652 | `v2_nfuq_s43/final_eval.csv` |
 | **s44** | **Nghiệm chọn $\delta = 1\%$** | **15** | **61.5%** | **0.8756** | **0.8812** | **0.8875** | `v2_nfuq_s44/final_eval.csv` |
 | | Nghiệm cân bằng (Knee) | 7 | 82.1% | 0.8255 | 0.8314 | 0.8654 | `v2_nfuq_s44/final_eval.csv` |
 | **s45** | **Nghiệm chọn $\delta = 1\%$** | **14** | **64.1%** | **0.8782** | **0.8821** | **0.8856** | `v2_nfuq_s45/final_eval.csv` |
 | | Nghiệm cân bằng (Knee) | 5 | 87.2% | 0.8150 | 0.8223 | 0.8301 | `v2_nfuq_s45/final_eval.csv` |
 | **s46** | **Nghiệm chọn $\delta = 1\%$** | **14** | **64.1%** | **0.8746** | **0.8797** | **0.8872** | `v2_nfuq_s46/final_eval.csv` |
 | | Nghiệm cân bằng (Knee) | 6 | 84.6% | 0.8416 | 0.8489 | 0.8687 | `v2_nfuq_s46/final_eval.csv` |
-| **Trung bình** | **Nghiệm chọn $\delta = 1\%$** | **13.2 $\pm$ 1.9** | **66.2%** | **0.8759** | **0.8801 $\pm$ 0.0022** | **0.8868** | *(Tổng hợp 5 seed)* |
+| **s47** | **Nghiệm chọn $\delta = 1\%$** | **15** | **61.5%** | **0.8770** | **0.8818** | **0.8837** | `v2_nfuq_s47/final_eval.csv` |
+| | Nghiệm cân bằng (Knee) | 7 | 82.1% | 0.8299 | 0.8343 | 0.8531 | `v2_nfuq_s47/final_eval.csv` |
+| **Trung bình** | **Nghiệm chọn $\delta = 1\%$** | **13.5 $\pm$ 1.9** | **65.4%** | **0.8758 $\pm$ 0.0015** | **0.8804 $\pm$ 0.0021** | **0.8851 $\pm$ 0.0026** | *(Tổng hợp 6 seed, ddof=1)* |
 
-**So sánh đối chứng với các Baseline trên NF-UQ (Test Macro-F1 trung bình 3 seed):**
-- Tại vùng $k \approx 13 - 15$:
-  + **NSGA-II (Nghiệm $\delta$, $k \approx 13$):** **0.8795**
-  + **Boruta rút gọn ($k=15$):** 0.8795
-  + **LightGBM Gain ($k=15$):** 0.8806
+*(Ghi chú về độ lệch chuẩn: Nếu dùng độ lệch chuẩn tổng thể ddof=0, ta có: $k = 13.5 \pm 1.7$, Test Macro-F1 = $0.8804 \pm 0.0019$, Test MCC = $0.8851 \pm 0.0024$).*
+
+**Đối chiếu sơ bộ với Baseline trên NF-UQ-NIDS-v2 (Tổng hợp 6 seeds s42–s47):**
+> ⚠️ **Lưu ý quan trọng về đối chứng Baseline:** Lưới $k$ cũ của Baseline ($\{5, 10, 15, 20, ...\}$) chỉ có mốc $k=10$ và $k=15$ trùng với một số seed, các mốc $k=13$ và $k=14$ chưa có dữ liệu đối chứng trực tiếp. Việc đặt cạnh Baseline tại $k=15$ dưới đây chỉ mang tính tham khảo sơ bộ:
+
+- **NSGA-II (Nghiệm $\delta$, $k \in \{10..15\}$, trung bình $k=13.5$):** Test Macro-F1 = **0.8804 $\pm$ 0.0021**
+- **Đối chiếu tại mốc $k=15$ của Baseline (trung bình 5 seeds):**
+  + **Boruta rút gọn ($k=15$):** 0.8795 *(chênh lệch so với NSGA-II $\Delta = +0.0006 < \sigma$, hiệu năng tương đương)*
+  + **LightGBM Gain ($k=15$):** 0.8806 *(chênh lệch $\Delta = -0.0005 < \sigma$, hiệu năng tương đương)*
   + **Mutual Information ($k=15$):** 0.8775
-  + **Random Selection ($k=15$, 20 runs):** 0.8465 $\pm$ 0.021
+  + **Random Selection ($k=15$, 20 runs/seed):** 0.8465 $\pm$ 0.0210
+
+---
+
+### 3.3. Đo lường hiệu năng biên giả lập E1 / E2
+- **Cơ chế mô phỏng phần cứng:** Trong tệp `scripts/benchmark_edge.py`, hàm `os.sched_setaffinity` được dùng trên Linux để gán tiến trình con vào đúng 1 nhân CPU vật lý (E1: core 0) và 2 nhân CPU (E2: cores 0, 1).
+- **Hiện trạng về giới hạn RAM:** Script **chưa thực hiện giới hạn cứng RAM 512MB hoặc 1GB** bằng cgroups hay cờ `--memory` của container Docker.
+- **Bản chất các số đo bộ nhớ:**
+  - Tệp `edge_benchmark_summary.csv`: Cột `peak_rss_kb` ghi nhận đỉnh bộ nhớ vật lý RSS của toàn bộ tiến trình Python thông qua `resource.getrusage(resource.RUSAGE_SELF).ru_maxrss`, đạt giá trị ~305.756 kB (~305 MB) khi nạp mô hình và tập dữ liệu.
+  - Tệp `edge_benchmark_summary_E2.csv`: Cột `peak_ram_kb` ghi nhận bộ nhớ cấp phát thêm bởi trình thông dịch Python thông qua `tracemalloc` (từ 8.2 kB đến 84.9 kB).
+- **Ghi nhãn môi trường đo thời gian:** Toàn bộ các chỉ số thời gian suy luận trong `final_eval.csv` và `baselines_summary.csv` (`val_infer_s`, `test_infer_s`) đều được đo trên **máy phát triển** (CPU Intel Core i3, hệ điều hành tiêu chuẩn, không giới hạn CPU affinity hay RAM).
+
+---
+
+### 3.4. Cơ chế đánh giá cá thể và bộ nhớ đệm (480 vs 477 đánh giá thực tế)
+- Thuật toán NSGA-II thiết lập 20 thế hệ với quần thể 24 cá thể, tương đương 480 lượt xử lý cá thể mỗi lần chạy seed.
+- Script `data/nsga2_fs.py` kích hoạt `eliminate_duplicates=True` trong `pymoo` và lưu đệm băm `cache.pkl` (`self.cache[mask.tobytes()] = F`). Khi một tổ hợp mặt nạ nhị phân xuất hiện lặp lại do toán tử lai ghép hoặc đột biến từ các thế hệ trước, hàm đánh giá tự động tái sử dụng kết quả từ cache mà không gọi lại LightGBM.
+- **Số lượng nghiệm duy nhất thực tế được huấn luyện:**
+  - Trên **DataSense IIoT 2025** ($d=71$, không gian tổ hợp $2^{71} \approx 2.36 \times 10^{21}$): Không gian tìm kiếm rất lớn nên hầu như không có cá thể trùng lặp qua các thế hệ. Tất cả các seed s42, s43, s45, s46, s47 đều huấn luyện đủ 480 cá thể duy nhất (riêng seed 44 có 479 cá thể duy nhất, hit cache 1 lần).
+  - Trên **NF-UQ-NIDS-v2** ($d=39$, không gian tổ hợp $2^{39} \approx 5.5 \times 10^{11}$, nhỏ hơn DataSense hơn 4 tỷ lần): Xác suất toán tử di truyền tái tạo lại một nghiệm cũ cao hơn. Cụ thể: Seed 42 có 477 cá thể duy nhất (3 lần hit cache), Seed 43 có 478, Seed 44 có 479, Seed 45 có 479, Seed 46 có 478.
+- Cả 480 cá thể đều được đánh giá đầy đủ trong quá trình tiến hóa; số lượng 477 (thay vì 480) mô hình LightGBM huấn luyện thực tế tại s42 NF-UQ phản ánh đúng cơ chế cache hoạt động hiệu quả theo thiết kế.
 
 ---
 
 ## 4. TỪ ĐIỂN DỮ LIỆU CÁC CỘT (DATA DICTIONARY)
 
 ### 4.1. Cấu trúc tệp `final_eval.csv` (trong thư mục NSGA-II v2)
-| Cột | Kiểu | Ý nghĩa |
-| :--- | :---: | :--- |
-| `solution` | string | Tên định danh nghiệm: `pareto_0`, `pareto_1`, ..., `baseline_all` |
-| `n_features` | integer | Số lượng đặc trưng được chọn ($k = |S|$) |
-| `reduction_%` | float | Tỷ lệ giảm số chiều: $\frac{d - |S|}{d} \times 100\%$ |
-| `val_macro_f1` | float | Điểm Macro-F1 trên tập Validation (mẫu số nhãn cố định) |
-| `val_mcc` | float | Điểm Matthews Correlation Coefficient trên tập Validation |
-| `val_infer_s` | float | Thời gian suy luận trung vị (giây) trên tập mẫu Validation |
-| `test_macro_f1` | float | Điểm Macro-F1 đánh giá trên tập Test độc lập |
-| `test_mcc` | float | Điểm MCC trên tập Test độc lập |
-| `test_infer_s` | float | Thời gian suy luận (giây) trên toàn bộ tập Test |
-| `selected` | string | Đánh dấu nghiệm chọn: `chosen_delta(0.01)` hoặc `knee_balanced` |
-| `features` | string | Danh sách tên đặc trưng được chọn (phân cách bằng dấu chấm phẩy `;`) |
+| Cột | Kiểu | Ý nghĩa | Môi trường đo (env) |
+| :--- | :---: | :--- | :--- |
+| `solution` | string | Tên định danh nghiệm: `pareto_0`, `pareto_1`, ..., `baseline_all` | — |
+| `n_features` | integer | Số lượng đặc trưng được chọn ($k = |S|$) | — |
+| `reduction_%` | float | Tỷ lệ giảm số chiều: $\frac{d - |S|}{d} \times 100\%$ | — |
+| `val_macro_f1` | float | Điểm Macro-F1 trên tập Validation (mẫu số nhãn cố định) | Máy phát triển |
+| `val_mcc` | float | Điểm Matthews Correlation Coefficient trên tập Validation | Máy phát triển |
+| `val_infer_s` | float | Thời gian suy luận trung vị (giây) trên tập mẫu Validation | Máy phát triển (CPU i3, native) |
+| `test_macro_f1` | float | Điểm Macro-F1 đánh giá trên tập Test độc lập | Máy phát triển |
+| `test_mcc` | float | Điểm MCC trên tập Test độc lập | Máy phát triển |
+| `test_infer_s` | float | Thời gian suy luận (giây) trên toàn bộ tập Test | Máy phát triển (CPU i3, native) |
+| `selected` | string | Đánh dấu nghiệm chọn: `chosen_delta(0.01)` hoặc `knee_balanced` | — |
+| `features` | string | Danh sách tên đặc trưng được chọn (phân cách bằng dấu chấm phẩy `;`) | — |
 
 ### 4.2. Cấu trúc tệp `baselines_summary.csv` (trong thư mục Baseline v2)
-| Cột | Kiểu | Ý nghĩa |
-| :--- | :---: | :--- |
-| `method` | string | Phương pháp: `all`, `boruta_lite`, `lgbm_imp`, `mi`, `random` |
-| `k` | integer | Số lượng đặc trưng được chọn |
-| `runs` | integer | Số lượt chạy độc lập (20 lượt với `random`, 1 lượt với các phương pháp khác) |
-| `val_f1` | float | Điểm Macro-F1 trung bình trên tập Validation |
-| `test_f1` | float | Điểm Macro-F1 trung bình trên tập Test độc lập |
-| `test_f1_std` | float | Độ lệch chuẩn của Test Macro-F1 (đặc biệt quan trọng với `random`) |
-| `test_mcc` | float | Điểm MCC trung bình trên tập Test |
-| `test_f1_max` | float | Điểm Test Macro-F1 cao nhất đạt được qua các lượt chạy |
-| `test_infer_s` | float | Thời gian suy luận trung bình đo với 150 cây cố định |
+| Cột | Kiểu | Ý nghĩa | Môi trường đo (env) |
+| :--- | :---: | :--- | :--- |
+| `method` | string | Phương pháp: `all`, `boruta_lite`, `lgbm_imp`, `mi`, `random` | — |
+| `k` | integer | Số lượng đặc trưng được chọn | — |
+| `runs` | integer | Số lượt chạy độc lập (20 lượt với `random`, 1 lượt với các phương pháp khác) | — |
+| `val_f1` | float | Điểm Macro-F1 trung bình trên tập Validation | Máy phát triển |
+| `test_f1` | float | Điểm Macro-F1 trung bình trên tập Test độc lập | Máy phát triển |
+| `test_f1_std` | float | Độ lệch chuẩn của Test Macro-F1 (đặc biệt quan trọng với `random`) | Máy phát triển |
+| `test_mcc` | float | Điểm MCC trung bình trên tập Test | Máy phát triển |
+| `test_f1_max` | float | Điểm Test Macro-F1 cao nhất đạt được qua các lượt chạy | Máy phát triển |
+| `test_infer_s` | float | Thời gian suy luận trung bình đo với 150 cây cố định | Máy phát triển (CPU i3, native) |
 
 ---
 
