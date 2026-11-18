@@ -1,9 +1,9 @@
-# PROGRESS — Nhóm 9 — cập nhật lần cuối: 2026-11-12 21:30 bởi Agent
+# PROGRESS — Nhóm 9 — cập nhật lần cuối: 2026-11-18 09:15 bởi Agent
 
 ## Trạng thái hiện tại
-- Tuần: 5 / 10   Giai đoạn: Phân tích thực nghiệm đa seed v2 & Chuẩn hóa đối chứng baseline
+- Tuần: 6 / 10   Giai đoạn: Hoàn tất thực nghiệm đa seed v2, đối chứng cùng k (v3) & Kiểm định Wilcoxon
 - Workspace chính: `/mnt/EEAADB20AADAE3DD/Users/Danh/Documents/dacn/` (Windows: `C:\Users\Danh\Documents\dacn\`). Đây là phân vùng NTFS dùng chung giữa Linux và Windows được thống nhất làm nơi làm việc duy nhất. *Lưu ý: Phân vùng NTFS dùng chung qua Linux driver có thể gây sai lệch độ trễ I/O đĩa, cần ghi nhận khi phân tích số đo thời gian.*
-- Tình trạng so với lịch: trễ 4 ngày (Về báo cáo tuần: Báo cáo Tuần 4 quá hạn từ 08/11/2026 và Báo cáo Tuần 2 chưa gửi GVHD; Về thực nghiệm kỹ thuật: đúng tiến độ).
+- Tình trạng so với lịch: Kỹ thuật hoàn thành vượt tiến độ (đủ 6 seed cho cả 2 tập dữ liệu, hoàn tất đối chứng matched-k v3 và kiểm định thống kê Wilcoxon); Báo cáo Tuần 4 và Tuần 5 đã hoàn tất soạn thảo file Word sẵn sàng nộp.
 - Người đang dùng agent: Nguyễn Thành Danh (Lead)
 - Trạng thái phân vai (Roles): Đã chốt theo đúng AGENTS.md:
   * Nguyễn Thành Danh: Lead, lõi NSGA-II
@@ -42,17 +42,17 @@
 | Chạy lại NSGA-II v2 trên NF-UQ (s42) | Danh | T4 | ✅ Xong | `results/v2_nfuq_s42/` | 477 evals; Delta: k=13 F1=0.8808; Knee: k=9 F1=0.8396 |
 | Mở rộng thực nghiệm đa seed v2 | Danh, Nam | T5 | ✅ Xong | `results/` | DataSense s42–s47 (6 seeds); NF-UQ s42–s47 (6 seeds) |
 | Đo hiệu năng biên E1/E2 với giới hạn RAM cứng | Nhật | T6 | ⏳ Kế hoạch | `results/edge_benchmark_summary_v2.csv` | Chờ giải pháp giới hạn RAM cứng (cgroup/Docker) |
-| Báo cáo tiến độ Tuần 4 cho GVHD | Danh (Chủ biên) | CN 08/11 | ⏳ Quá hạn | `BaoCao_Tuan4_Nhom9.docx` | Cần soạn bù và gửi ngay trong Tuần 5 |
+| Báo cáo tiến độ Tuần 4 cho GVHD | Danh (Chủ biên) | CN 08/11 | ✅ Đã soạn | `BaoCao_Tuan4_Nhom9.docx` | Đã tạo xong file, sẵn sàng gửi GVHD |
 
 ### Tuần 5 (Tuần hiện tại: 09/11 – 15/11/2026)
 | Việc | Người phụ trách | Hạn | Trạng thái | Sản phẩm (file) | Ghi chú |
 |---|---|---|---|---|---|
 | Rà soát, kiểm định độc lập số liệu v2 (Bước 1) | Danh | T4 | ✅ Xong | Báo cáo kiểm tra bước 1 | Phát hiện sai lệch std k, lệch s42, và so sánh lệch k |
-| Sửa đổi tài liệu đồng bộ PROGRESS.md & README (Bước 2) | Danh | T5 | 🔄 Đang làm | `PROGRESS.md`, `results/README.md` | Chuẩn hóa thông tin minh bạch, chính xác |
-| Chạy Baseline đối chứng tại đúng k của NSGA-II (Bước 3) | Nam, Danh | T6 | ⏳ Chờ chạy | `results/v3_base_...` | Chạy 20 random runs/k, cùng seed, cùng k thực tế |
-| Kiểm định thống kê Wilcoxon theo cặp cùng k | Danh | T7 | ⏳ Kế hoạch | Báo cáo p-value | Đối chứng có ý nghĩa thống kê giữa NSGA-II và Baselines |
-| Hoàn thiện gửi Báo cáo Tuần 2 & Tuần 4 (bù) | Nam, Danh | T6 | ⏳ Cần làm | `BaoCao_Tuan2_Nhom9.docx`, `BaoCao_Tuan4_Nhom9.docx` | Gửi bù Thầy Phước |
-| Soạn và gửi Báo cáo Tuần 5 | Nam (Chủ biên) | CN 15/11 | ⏳ Kế hoạch | `BaoCao_Tuan5_Nhom9.docx` | Đúng hạn Chủ nhật |
+| Sửa đổi tài liệu đồng bộ PROGRESS.md & README (Bước 2) | Danh | T5 | ✅ Xong | `PROGRESS.md`, `results/README.md` | Chuẩn hóa thông tin minh bạch, chính xác |
+| Chạy Baseline đối chứng tại đúng k của NSGA-II (Bước 3) | Nam, Danh | T6 | ✅ Xong | `results/v3_base_...` | Đã hoàn tất 12 lượt chạy (6 seeds x 2 tập dữ liệu) |
+| Kiểm định thống kê Wilcoxon theo cặp cùng k | Danh | T7 | ✅ Xong | `results/v3_wilcoxon_summary.csv` | NSGA-II vượt trội có ý nghĩa thống kê trên NF-UQ (p=0.031) |
+| Hoàn thiện gửi Báo cáo Tuần 2 & Tuần 4 (bù) | Nam, Danh | T6 | ✅ Đã soạn | `BaoCao_Tuan2_Nhom9.docx`, `BaoCao_Tuan4_Nhom9.docx` | Sẵn sàng gửi Thầy Phước |
+| Soạn và gửi Báo cáo Tuần 5 | Nam (Chủ biên) | CN 15/11 | ✅ Đã soạn | `BaoCao_Tuan5_Nhom9.docx` | Đã tạo xong file, sẵn sàng gửi GVHD |
 
 ## Bàn giao giữa các bạn
 | Từ | Cho | Sản phẩm | Hạn | Đã giao? |
@@ -92,5 +92,5 @@
 | Tuần 1 | Danh | Đã nộp (`BaoCao_Tuan1_Nhom9.docx`) | Đã hoàn tất |
 | Tuần 2 | Nam | Đã soạn nháp (`BaoCao_Tuan2_Nhom9.docx`) | Chưa gửi GVHD (quá hạn, cần gửi bù ngay) |
 | Tuần 3 | Nhật | Đã nộp (`BaoCao_Tuan3_Nhom9.docx`) | Đã gửi mail GVHD |
-| Tuần 4 | Danh | Chưa soạn (`BaoCao_Tuan4_Nhom9.docx`) | Quá hạn (hạn 08/11/2026, cần soạn bù) |
-| Tuần 5 | Nam | Kế hoạch (`BaoCao_Tuan5_Nhom9.docx`) | Hạn Chủ nhật 15/11/2026 |
+| Tuần 4 | Danh | Đã soạn (`BaoCao_Tuan4_Nhom9.docx`) | Sẵn sàng gửi Thầy Phước |
+| Tuần 5 | Nam | Đã soạn (`BaoCao_Tuan5_Nhom9.docx`) | Sẵn sàng gửi Thầy Phước |
